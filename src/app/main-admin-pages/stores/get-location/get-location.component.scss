@@ -1,0 +1,38 @@
+// @import url(https://openlayers.org/en/v4.6.5/css/ol.css);
+
+// #map {
+//     position: absolute;
+//     z-index: 5;
+//     width: 552px;
+//     height: 447px;
+// }
+// #msg {
+//     position: absolute;
+//     z-index: 10;
+//     left: 50%;
+//     transform: translate(-50%, 5px);
+//     background-color: rgba(40,40,40,.8);
+//     padding: 10px;
+//     color: #eee;
+//     width: 350px;
+//     text-align: center;
+// }
+
+mat-dialog-container {
+    position: relative;
+    width: 768px;
+    height: 516px;
+}
+
+agm-map {
+    height: 481px;
+    width: 78%;
+}
+
+.cdk-overlay-oane {
+    max-width: 170vw;
+    pointer-events: auto;
+    width: 746px;
+    height: 509px;
+    position: static;
+}

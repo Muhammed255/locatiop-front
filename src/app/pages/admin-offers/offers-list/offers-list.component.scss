@@ -1,0 +1,65 @@
+mat-card {
+    width: 16rem;
+    left: 39rem;
+    top: 12px;
+    margin-bottom: 32px;
+}
+
+.addBtn {
+    left: 75px;
+}
+
+mat-list {
+    background-color: #714fff82;
+    height: 6rem;
+    position: relative;
+    bottom: 5px;
+    width: 60rem;
+    left: 50px;
+}
+
+mat-divider {
+    position: relative;
+    top: 36px;
+    background-color: #fd2929c2;
+}
+
+mat-icon {
+    font-size: 40px;
+    margin-right: 12px;
+}
+
+.offDesc {
+    position: absolute;
+    top: 55px;
+    left: 86px;
+    color: #800000;
+}
+
+.prod-container {
+    position: relative;
+    top: 0;
+    left: 58px;
+    width: 26rem;
+}
+
+.list-action {
+    position: relative;
+    top: 20px;
+    background-color: #27213c;
+    left: 100px;
+}
+
+img {
+    position: relative;
+    left: 29px;
+    width: 70px;
+    height: 50px;
+}
+
+countdown-timer {
+    background-color: slategray;
+    color: #FFF;
+    position: relative;
+    left: 10px;
+}

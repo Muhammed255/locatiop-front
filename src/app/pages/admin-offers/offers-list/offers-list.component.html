@@ -1,0 +1,42 @@
+<mat-card>
+    <button
+        mat-raised-button
+        color="accent"
+        class="addBtn"
+        (click)="OnAddBtnClicked()"
+    >
+        Add Offer
+    </button>
+</mat-card>
+
+<mat-list *ngFor="let offer of offers">
+    <mat-list-item>
+        <mat-icon mat-list-icon>card_giftcard</mat-icon>
+        <div class="off-info">
+            <h3>{{ offer.offerType }}</h3>
+            <p class="offDesc">{{ offer.description }}</p>
+        </div>
+        <countdown-timer [end]="offer.end_date"></countdown-timer>
+        <img [src]="offer.offer_image" [alt]="offer.offerType">
+        <div class="prod-container">
+            <h5>Product : <em> {{ offer.productId.title }}</em></h5>
+            <p>Product Description : <em> {{ offer.productId.description }}</em></p>
+        </div>
+        <div class="list-action">
+            <a
+                mat-button
+                [routerLink]="['/offer/edit', offer._id]"
+                color="primary"
+                >EDIT</a
+            >
+            <button
+                mat-button
+                color="accent"
+                (click)="onDeleteOffer(offer._id)"
+            >
+                DELETE
+            </button>
+        </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-list>

@@ -1,0 +1,308 @@
+<div class="container">
+  <div class="row align-items-center my-5">
+      <div class="col-lg-7">
+          <img
+              class="img-fluid rounded mb-4 mb-lg-0"
+              [src]="offer?.offer_image"
+              [alt]="offer?.productId.title"
+              style="max-width: 58.33%;"
+          />
+      </div>
+      <!-- /.col-lg-8 -->
+      <div class="col-lg-5">
+          <h1 class="font-weight-light">{{ offer?.productId.title }}</h1>
+          by
+          <a
+              mat-button
+              color="primary"
+              *ngIf="offer?.productId.storeId"
+              [routerLink]="['/account/store', offer?.productId.storeId._id]"
+              >{{ offer?.productId.storeId.name }}</a
+          >
+          <div class="rating-section">Rating & Reviews</div>
+          <p *ngIf="offer">Offer: {{ offer?.offerType }}</p>
+          <p>{{ offer?.description }}</p>
+          <p><countdown-timer [end]="offer?.end_date"></countdown-timer></p>
+          <a class="report-link"
+              ><mat-icon>report_problem</mat-icon> Report incorrect offer
+              information.</a
+          >
+      </div>
+  </div>
+
+  <!-- Post Comment Box: Start -->
+  <ul class="list-group">
+      <li class="list-group-item">
+          <!-- Post Comment Button -->
+          <button
+              type="button"
+              name="button"
+              class="btn btn-sm btn-danger"
+              (click)="draftComment(offer?._id)"
+              [disabled]="newComment.indexOf(offer?._id) > -1"
+          >
+              Post Comment
+          </button>
+          <br />
+          <br />
+          <div *ngIf="newComment.indexOf(offer?._id) > -1">
+              <!-- Form: Comment Form Start -->
+              <form [formGroup]="commentForm">
+                  <!-- Textarea Input -->
+                  <textarea
+                      name="comment"
+                      rows="10"
+                      cols="30"
+                      class="form-control"
+                      formControlName="comment"
+                  ></textarea>
+                  <!-- Validation -->
+                  <div
+                      [ngClass]="{
+                          'has-success':
+                              !commentForm.controls.comment.errors &&
+                              commentForm.controls.comment.dirty,
+                          'has-error':
+                              commentForm.controls.comment.dirty &&
+                              commentForm.controls.comment.errors
+                      }"
+                  >
+                      <ul class="help-block">
+                          <li
+                              *ngIf="
+                                  commentForm.controls.comment.errors
+                                      ?.required &&
+                                  commentForm.controls.comment.dirty
+                              "
+                          >
+                              This field is required.
+                          </li>
+                          <li
+                              *ngIf="
+                                  (commentForm.controls.comment.errors
+                                      ?.maxlength &&
+                                      commentForm.controls.comment.dirty) ||
+                                  (commentForm.controls.comment.errors
+                                      ?.minlength &&
+                                      commentForm.controls.comment.dirty)
+                              "
+                          >
+                              Comment must be at least 1 character but no more
+                              than 200.
+                          </li>
+                      </ul>
+                  </div>
+                  <!-- Post Button -->
+                  <button
+                      [disabled]="!commentForm.valid"
+                      type="submit"
+                      name="button"
+                      class="btn btn-sm btn-info"
+                      (click)="postComment(offer?._id)"
+                  >
+                      Post
+                  </button>
+                  <!-- Cancel Button -->
+                  <button
+                      type="button"
+                      name="button"
+                      class="btn btn-sm btn-danger"
+                      (click)="cancelSubmission(offer?._id)"
+                  >
+                      Cancel
+                  </button>
+              </form>
+              <!-- Form: Comment Form End -->
+          </div>
+
+          <!-- Show Comments -->
+      </li>
+      <li>
+        <div class="row">
+          <div class="col-12">
+              <div class="comments">
+                  <div class="comments-details">
+                      <span class="total-comments comments-sort">{{offer?.comments.length}}</span>
+                      <span class="dropdown">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Sort By <span class="caret"></span></button>
+                            <div class="dropdown-menu">
+                              <a href="#" class="dropdown-item">Top Comments</a>
+                              <a href="#" class="dropdown-item">Newest First</a>
+                            </div>
+                      </span>			
+                  </div>
+              </div>
+          </div>
+        </div>
+      </li>
+      <li
+          *ngIf="
+              enabledComments.indexOf(offer?._id) === -1 &&
+              offer?.comments.length > 0
+          "
+          class="list-group-item"
+      >
+          <span (click)="expand(offer?._id)">
+              Show comments&nbsp;&nbsp;
+              <div class="glyphicon glyphicon-comment"></div>
+          </span>
+      </li>
+
+      <!-- Hide Comments -->
+      <li
+          *ngIf="enabledComments.indexOf(offer?._id) > -1"
+          class="list-group-item"
+      >
+          <span (click)="collapse(offer?._id)">
+              Hide Comments&nbsp;&nbsp;
+              <div class="glyphicon glyphicon-comment"></div>
+          </span>
+      </li>
+
+      <!-- Comment -->
+      <div *ngIf="enabledComments.indexOf(offer?._id) > -1">
+          <li
+              *ngFor="let comment of offer?.comments"
+              class="list-group-item"
+          >
+              <div class="row">
+                  <div class="col-sm-2">
+                      <div class="thumbnail">
+                          <img
+                              class="img-responsive user-photo"
+                              [src]="comment?.commentator.user_image"
+                              [alt]="comment?.commentator.username"
+                          />
+                      </div>
+                      <!-- /thumbnail -->
+                  </div>
+                  <!-- /col-sm-2 -->
+
+                  <div class="col-sm-10">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <strong>{{ comment?.commentator.name }}</strong>
+                              <span class="text-muted"
+                                  >commented 5 days ago</span
+                              >
+                          </div>
+                          <div class="panel-body">
+                              {{ comment.comment }}
+                          </div>
+                          <!-- /panel-body -->
+                          <button class="comment-like">
+                              <i
+                                  class="fa fa-thumbs-o-up"
+                                  aria-hidden="true"
+                              ></i>
+                              99
+                          </button>
+                          <button class="comment-dislike">
+                              <i
+                                  class="fa fa-thumbs-o-down"
+                                  aria-hidden="true"
+                              ></i>
+                              149
+                          </button>
+                          <button
+                              class="comment-reply reply-popup"
+                              (click)="toggle()"
+                          >
+                              <i
+                                  class="fa fa-reply-all"
+                                  aria-hidden="true"
+                              ></i>
+                              Reply
+                          </button>
+                          <div
+                              class="comment-box add-comment reply-box"
+                              *ngIf="show_reply_box"
+                          >
+                              <span class="commenter-pic">
+                                  <img
+                                      [src]="auth_user?.user_image ? auth_user?.user_image : 'assets/img/faces/face-0.jpg'"
+                                      class="img-fluid"
+                                  />
+                              </span>
+                              <span class="commenter-name">
+                                  <input
+                                      type="text"
+                                      placeholder="Add a public reply"
+                                      name="Add Comment"
+                                  />
+                                  <button
+                                      type="submit"
+                                      class="btn btn-default"
+                                  >
+                                      Reply
+                                  </button>
+                                  <button
+                                      type="cancel"
+                                      class="btn btn-default reply-popup"
+                                      (click)="toggle()"
+                                  >
+                                      Cancel
+                                  </button>
+                              </span>
+                          </div>
+                      </div>
+                      <!-- /panel panel-default -->
+                  </div>
+                  <!-- /col-sm-5 -->
+              </div>
+          </li>
+      </div>
+  </ul>
+  <!-- Post Comment Box: End -->
+
+  <!-- ============================================================== -->
+  <!-- Recent comment -->
+  <!-- ============================================================== -->
+  <!-- <div class="row">
+      <div class="col-lg-12">
+          <div class="card">
+              <div class="card-body">
+                  <h4 class="card-title">Recent Comments</h4>
+              </div>
+              <div class="comment-widgets" style="height:430px;">
+                  <div class="d-flex flex-row comment-row m-t-0">
+                      <div class="p-2">
+                          <img
+                              src="assets/img/faces/face-0.jpg"
+                              alt="user"
+                              width="50"
+                              class="rounded-circle"
+                          />
+                      </div>
+                      <div class="comment-text w-100">
+                          <h6 class="font-medium">James Anderson</h6>
+                          <span class="m-b-15 d-block"
+                              >Lorem Ipsum is simply dummy text of the
+                              printing and type setting industry.
+                          </span>
+                          <div class="comment-footer">
+                              <span class="text-muted float-right"
+                                  >April 14, 2016</span
+                              >
+                              <span class="label label-rounded label-primary"
+                                  >Pending</span
+                              >
+                              <span class="action-icons">
+                                  <a href="javascript:void(0)">
+                                      <i class="fa fa-pencil-alt"></i>
+                                  </a>
+                                  <a href="javascript:void(0)">
+                                      <i class="fa fa-check"></i>
+                                  </a>
+                                  <a href="javascript:void(0)">
+                                      <i class="fa fa-heart"></i>
+                                  </a>
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div> -->
+</div>

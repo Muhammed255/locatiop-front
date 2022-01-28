@@ -1,0 +1,152 @@
+<h1 mat-dialog-title style="text-align: center;font-size: 40px;">
+  {{ headerTitle }}
+</h1>
+<div mat-dialog-content>
+  <form [formGroup]="jobForm" class="form-container">
+      <mat-form-field color="accent">
+          <input
+              matInput
+              formControlName="title"
+              type="text"
+              required
+              placeholder="Job Title"
+          />
+      </mat-form-field>
+      <mat-error
+          *ngIf="
+              jobForm.controls.title.invalid && jobForm.controls.title.touched
+          "
+          >Job Title is Required</mat-error
+      >
+      <ckeditor [editor]="editor" formControlName="description" [data]="data"></ckeditor>
+      <mat-form-field color="accent">
+          <input
+              matInput
+              formControlName="experience_years"
+              type="number"
+              required
+              placeholder="Job experience years"
+          />
+      </mat-form-field>
+      <mat-error
+          *ngIf="
+              jobForm.controls.experience_years.invalid && jobForm.controls.experience_years.touched
+          "
+          >Job experience years is Required</mat-error
+      >
+      <mat-form-field color="accent">
+          <input
+              matInput
+              formControlName="age"
+              type="number"
+              required
+              placeholder="Required age"
+          />
+      </mat-form-field>
+      <mat-error
+          *ngIf="jobForm.controls.age.invalid && jobForm.controls.age.touched"
+          >Age is required</mat-error
+      >
+
+      <tag-input formControlName="experiences" [clearOnBlur]="[true]" [editable]="true" [blinkIfDupe]="false" [separatorKeyCodes]="[32]" [modelAsStrings]="true" [dragZone]="true"></tag-input>
+
+
+      <mat-error
+          *ngIf="jobForm.controls.experiences.invalid && jobForm.controls.experiences.touched"
+          >experiences is required</mat-error
+      >
+      <tag-input formControlName="skills" [clearOnBlur]="[true]" [editable]="true" [blinkIfDupe]="false" [separatorKeyCodes]="[32]" [modelAsStrings]="true" [dragZone]="true"></tag-input>
+        
+      <mat-error
+          *ngIf="jobForm.controls.skills.invalid && jobForm.controls.skills.touched"
+          >skills is required</mat-error
+      >
+      <mat-form-field color="accent">
+          <input
+              matInput
+              formControlName="salary"
+              type="number"
+              required
+              placeholder="Required salary"
+          />
+      </mat-form-field>
+      <mat-error
+          *ngIf="jobForm.controls.salary.invalid && jobForm.controls.salary.touched"
+          >salary is required</mat-error
+      >
+      <mat-form-field color="accent">
+          <input
+              matInput
+              formControlName="location"
+              type="text"
+              required
+              placeholder="Required location"
+          />
+      </mat-form-field>
+      <mat-error
+          *ngIf="jobForm.controls.location.invalid && jobForm.controls.location.touched"
+          >location is required</mat-error
+      >
+      <mat-form-field color="accent">
+          <input
+              matInput
+              formControlName="job_type"
+              type="text"
+              required
+              placeholder="Required job type"
+          />
+      </mat-form-field>
+      <mat-error
+          *ngIf="jobForm.controls.job_type.invalid && jobForm.controls.job_type.touched"
+          >job type is required</mat-error
+      >
+      <mat-form-field color="accent">
+          <mat-label>Select Gender</mat-label>
+          <mat-select [matTooltip]="" formControlName="job_gender" required color="accent">
+              <mat-option value="male">Male</mat-option>
+              <mat-option value="female">Female</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-error
+          *ngIf="jobForm.controls.job_gender.invalid && jobForm.controls.job_gender.touched"
+          >job gender is required</mat-error
+      >
+      <mat-form-field color="accent">
+          <input
+              matInput
+              formControlName="qualification"
+              type="text"
+              required
+              placeholder="Required qualification"
+          />
+      </mat-form-field>
+      <mat-error
+          *ngIf="jobForm.controls.qualification.invalid && jobForm.controls.qualification.touched"
+          >qualification is required</mat-error
+      >
+      <mat-form-field color="accent">
+          <input
+              matInput
+              formControlName="career_level"
+              type="text"
+              required
+              placeholder="Required career_level"
+          />
+      </mat-form-field>
+      <mat-error
+          *ngIf="jobForm.controls.career_level.invalid && jobForm.controls.career_level.touched"
+          >career level is required</mat-error
+      >
+  </form>
+</div>
+<div mat-dialog-actions class="actions">
+  <button
+      mat-button
+      [mat-dialog-close]="jobForm.value"
+      cdkFocusInitial
+      color="primary"
+  >
+      Save
+  </button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

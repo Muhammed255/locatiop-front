@@ -1,0 +1,106 @@
+<div class="col-md-9">
+  <div class="title"><span>Featured Offers</span></div>
+  <div class="box-product-outer" fxFlex="25" *ngFor="let offer of offers">
+      <mat-card>
+          <div class="box-product">
+              <div class="img-wrapper">
+                  <a href="detail.html">
+                      <img
+                          [alt]="offer.offerType"
+                          [src]="offer.offer_image"
+                      />
+                  </a>
+                  <div class="tags">
+                      <span class="label-tags"
+                          ><span class="label label-danger">Sale</span></span
+                      >
+                      <span class="label-tags"
+                          ><span class="label label-info"
+                              >Featured</span
+                          ></span
+                      >
+                      <span class="label-tags"
+                          ><span class="label label-warning">Polo</span></span
+                      >
+                  </div>
+                  <div class="option">
+                      <a
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title=""
+                          data-original-title="Add to Cart"
+                          (click)="onCartBtnClicked(offer._id)"
+                          ><i class="ace-icon fa fa-shopping-cart"></i
+                      ></a>
+                      <a
+                          href="#"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title=""
+                          data-original-title="Compare"
+                          ><i class="ace-icon fa fa-align-left"></i
+                      ></a>
+                      <a
+                          href="#"
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title=""
+                          data-original-title="Wishlist"
+                          ><i class="ace-icon fa fa-heart"></i
+                      ></a>
+                  </div>
+              </div>
+              <h6>
+                  <a [routerLink]="['/account/offer', offer._id]">{{
+                      offer.description
+                  }}</a>
+              </h6>
+              <div class="price">
+                  <div>
+                      ${{
+                          offer.offerType === 'Discount'
+                              ? offer.new_price
+                              : offer.offerType
+                      }}<span class="price-down">-10%</span>
+                  </div>
+                  <span class="price-old">${{ offer.productId.price }}</span>
+              </div>
+              <div class="rating">
+                  <i class="ace-icon fa fa-star"></i>
+                  <i class="ace-icon fa fa-star"></i>
+                  <i class="ace-icon fa fa-star"></i>
+                  <i class="ace-icon fa fa-star"></i>
+                  <i class="ace-icon fa fa-star-half-o"></i>
+                  <a href="#">(2 reviews)</a>
+              </div>
+          </div>
+      </mat-card>
+  </div>
+</div>
+
+<!-- <mat-card class="example-card" *ngFor="let offer of offers" fxFlex="30" >
+<mat-card-header style="background-color: #8242ff">
+  <div mat-card-avatar class="example-header-image" [ngStyle]="{'background-image':' url(' + offer?.productId.storeId.logo + ')', 'background-size': 'cover'}"></div>
+  <mat-card-title>{{offer?.productId.title}}</mat-card-title>
+  <mat-card-subtitle>Offer Type: {{offer.offerType}}</mat-card-subtitle>
+  <mat-card-subtitle>Added By: {{offer?.productId.userId.name}}</mat-card-subtitle>
+</mat-card-header>
+<img mat-card-image [src]="offer.offer_image" [alt]="offer.offerType" style="height: 100%;width: 100%; margin: 0 0 20px 0;">
+<mat-card-content [routerLink]="['/account/offer', offer._id]">
+  <p>
+    {{offer.description}}
+  </p>
+</mat-card-content>
+<mat-card-actions style="background-color: #59ffff;">
+  <button mat-button><mat-icon class="mat-18" color="accent">favorite</mat-icon></button>
+  <button mat-button (click)="onCartBtnClicked(offer._id)" ><mat-icon class="mat-18" color="warn">add_shopping_cart</mat-icon></button>
+  <button mat-button><mat-icon class="mat-18" color="primary">comment</mat-icon></button>
+  <button mat-button>
+    <span class="fa fa-stack">
+      <i class="fa fa-shield fa-stack-2x"></i>
+      <i class="fa fa-square fa-stack-bottom-right fa-inverse"></i>
+      <i class="fa fa-check-square fa-stack-bottom-right"></i>
+    </span>
+  </button>
+</mat-card-actions>
+</mat-card> -->

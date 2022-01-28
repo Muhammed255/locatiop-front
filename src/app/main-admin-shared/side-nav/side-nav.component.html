@@ -1,0 +1,100 @@
+<mat-nav-list>
+    <div class="profile-card">
+        <div class="header2">
+            <h2>Name</h2>
+            <h4>Email</h4>
+        </div>
+        <img
+            src="assets/img/faces/face-0.jpg"
+            alt="Name"
+        />
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>FP4U</h2>
+
+    <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/main-admin/dashboard']"
+        ><mat-icon>dashboard</mat-icon> Dashboard</a
+    >
+    <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/main-admin/categories']"
+        ><mat-icon>category</mat-icon> Categories</a
+    >
+    <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/main-admin/stores/list']"
+        ><mat-icon>store</mat-icon> Stores</a
+    >
+    <a mat-list-item routerLinkActive="list-item-active" [routerLink]="['/main-admin/storeAdmin/list']"
+        ><mat-icon>supervisor_account</mat-icon> Store Admins</a
+    >
+
+    <mat-divider></mat-divider>
+
+    <h2 matSubheader>Tools</h2>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="">
+        <mat-icon>import_contacts</mat-icon>
+        Contacts
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="">
+        <mat-icon>contact_phone</mat-icon>
+        Leads
+    </a>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="">
+        <mat-icon>message</mat-icon>
+        Message Requests
+    </a>
+</mat-nav-list>
+
+<!-- 
+<mat-toolbar color="primary" class="header">
+    <div>FP4U</div>
+    <span class="nav-tool-items">
+        <mat-icon
+            (click)="sidenav.toggle()"
+            class="hamburger"
+            style="cursor: pointer;
+                  position: relative;
+                  top: 4px;
+                  right: -3px;"
+            >menu</mat-icon
+        >
+    </span>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav
+        #sidenav
+        [mode]="isBiggerScreen() ? 'over' : 'side'"
+        [(opened)]="opened"
+        [fixedInViewport]="true"
+        [fixedTopGap]
+    >
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="['/main-admin/dashboard']">
+                <mat-icon>dashboard</mat-icon> Dashboard
+            </a>
+            <a mat-list-item routerLink="/main-admin/categories">
+                <mat-icon>person</mat-icon>Categories
+            </a>
+            <a mat-list-item routerLink="/main-admin/stores/list">
+                <mat-icon>content_paste</mat-icon> Stores
+            </a>
+            <a mat-list-item routerLink="/main-admin/storeAdmin/list">
+                <mat-icon>library_books</mat-icon> Store Admins
+            </a>
+            <a mat-list-item (click)="onLogout()"> <mat-icon>exit_to_app</mat-icon> Logout </a>
+            <a mat-list-item> <mat-icon>calendar_today</mat-icon> Calendar </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content style="height: 55rem;width: 100%;">
+        <section class="mat-typography title-group">
+            <router-outlet></router-outlet>
+        </section>
+        <div class="productCards">
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+ -->

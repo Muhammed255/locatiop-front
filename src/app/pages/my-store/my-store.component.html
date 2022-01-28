@@ -1,0 +1,59 @@
+<img [src]="store?.logo" class="logo" [alt]="store?.name" />
+
+<mat-tab-group color="primary" backgroundColor="accent">
+    <mat-tab label="Home">
+        <mat-chip-list
+            class="mat-chip-list-stacked"
+            aria-label="Color selection"
+        >
+            <mat-chip color="accent">
+                <h1>{{ store?.name }}</h1>
+            </mat-chip>
+            <mat-chip color="warn">
+                <h4>{{ store?.location }}</h4>
+            </mat-chip>
+        </mat-chip-list>
+    </mat-tab>
+    <mat-tab label="Products">
+        <mat-card *ngFor="let product of store?.products">
+            <img
+                [src]="product.image"
+                [alt]="product.title"
+                height="30"
+                style="float: left;"
+            />
+            <h2>{{ product.title }}</h2>
+            <p>{{ product.description }}</p>
+            <div style="float: right;">
+                <p>{{ product.production_date | date }}</p>
+                <p>{{ product.expire_date | date }}</p>
+            </div>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Offers">
+        <mat-card *ngFor="let offer of store?.offers">
+            <img
+                [src]="offer.offer_image"
+                [alt]="offer.offerType"
+                height="30"
+                style="float: left;"
+            />
+            <h2>{{ offer.offerType }}</h2>
+            <p>{{ offer.description }}</p>
+            <div style="float: right;">
+                <p>{{ offer.start_date | date }}</p>
+                <p>{{ offer.end_date | date }}</p>
+            </div>
+        </mat-card>
+    </mat-tab>
+    <mat-tab label="Jobs">
+        <mat-card *ngFor="let job of store?.jobs">
+            <h1>{{ job.title }}</h1>
+            <p>{{ job.experience }}</p>
+            <div style="float: right;">
+                <p>{{ job.age }}</p>
+                <p>{{ job.description }}</p>
+            </div>
+        </mat-card>
+    </mat-tab>
+</mat-tab-group>

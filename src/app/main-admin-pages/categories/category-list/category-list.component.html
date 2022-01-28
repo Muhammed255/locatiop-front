@@ -1,0 +1,81 @@
+<!-- <div class="row">
+<div class="col-sm-4">
+<div *ngIf="categories?.length > 0">
+<mat-card *ngFor="let cat of categories">
+<mat-card-header>
+  <mat-card-title>{{ cat.name }}</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+  {{ cat.description }}
+</mat-card-content>
+<mat-card-footer>
+  <button mat-button color="primary">EDIT</button>
+  <button mat-button color="accent" (click)="onDeleteCategory(cat._id)">
+    DELETE
+  </button>
+</mat-card-footer>
+</mat-card>
+</div>
+</div>
+</div>
+<p *ngIf="categories?.length <= 0">
+No Categories Added
+</p>
+-->
+<!-- 
+<div class="row">
+<div class="col-sm-6" *ngIf="categories?.length > 0">
+<div class="card" *ngFor="let cat of categories">
+<div class="card-body">
+<h5 class="card-title">{{ cat.name }}</h5>
+<p class="card-text">
+  {{ cat.description }}
+</p>
+<button mat-button color="primary">EDIT</button>
+<button mat-button color="accent" (click)="onDeleteCategory(cat._id)">
+  DELETE
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<p *ngIf="categories?.length <= 0">
+No Categories Added
+</p> -->
+<button mat-mini-fab *ngIf="!isLoading" color="primary" class="addBtn" (click)="onAddBtnClick()"><mat-icon class="mat-18">add</mat-icon></button>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<div class="grid" *ngIf="categories?.length > 0">
+  <article class="card cat-item" *ngFor="let cat of categories">
+    <header class="card__header">
+      <h1 class="cat__name">
+        {{ cat.name }}
+      </h1>
+    </header>
+    <div class="card__content">
+      <p class="cat__description">
+        {{ cat.description }}
+      </p>
+    </div>
+    <div class="card__actions">
+      <a
+        mat-button
+        [routerLink]="['/account/categories/edit', cat._id]"
+        color="primary"
+        >EDIT</a
+      >
+      <button mat-button color="accent" (click)="onDeleteCategory(cat._id)">
+        DELETE
+      </button>
+    </div>
+  </article>
+</div>
+<mat-paginator
+  [length]="totalCats"
+  [pageSize]="catsPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangePage($event)"
+  *ngIf="categories?.length > 0 || !isLoading"
+></mat-paginator>
+<h1 *ngIf="categories?.length <= 0" style="text-align: center;">No Categories Found!</h1>

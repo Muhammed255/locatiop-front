@@ -1,0 +1,200 @@
+<section class="overlap">
+  <div class="block no-padding">
+      <div
+          data-velocity="-.1"
+          [ngStyle]="{
+              background: 'url(image) 50% -50.7px repeat scroll transparent;'
+          }"
+          class="parallax scrolly-invisible no-parallax"
+      ></div>
+      <div class="container fluid">
+          <div class="row">
+              <div class="col-lg-12">
+                  <div class="inner-header">
+                      <h3>Store Name</h3>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<section>
+  <div class="block no-padding">
+      <div class="container">
+          <div class="row no-gape">
+              <form (ngSubmit)="onSearch()" [formGroup]="searchForm">
+                  <aside class="col-md-3 column border-right">
+                      <div class="widget">
+                          <div class="search_widget_job">
+                              <div class="field_w_search">
+                                  <input
+                                      type="text"
+                                      placeholder="Search for job"
+                                      formControlName="job_search"
+                                  />
+
+                                  <button mat-icon-button>
+                                      <mat-icon class="mat-36 search_icon"
+                                          >search</mat-icon
+                                      >
+                                  </button>
+                              </div>
+                              <div class="field_w_search">
+                                  <input type="text" placeholder="location" formControlName="location" />
+                                  <mat-icon class="mat-36 map_icon"
+                                      >location_on</mat-icon
+                                  >
+                              </div>
+                          </div>
+                      </div>
+                      <div class="widget">
+                          <h3 class="sb-title open">Date Posted</h3>
+                          <div class="posted_widget">
+                              <input
+                                  type="radio"
+                                  [(ngModel)]="lastHour"
+                                  formControlName="createdAt"
+                                  id="232"
+                              />
+                              <label for="232">Last Hour</label>
+                              <br />
+                              <input
+                                  type="radio"
+                                  [(ngModel)]="last1Days"
+                                  formControlName="createdAt"
+                                  id="wwqe"
+                              />
+                              <label for="wwqe">Last 24 Hours</label>
+                              <br />
+                              <input
+                                  type="radio"
+                                  [(ngModel)]="last7Days"
+                                  formControlName="createdAt"
+                                  id="qwe"
+                              />
+                              <label for="qwe">Last 7 Days</label>
+                              <br />
+                              <input
+                                  type="radio"
+                                  [(ngModel)]="last14Days"
+                                  formControlName="createdAt"
+                                  id="erewr"
+                              />
+                              <label for="erewr">Last 14 Days</label>
+                              <br />
+                              <input
+                                  type="radio"
+                                  [(ngModel)]="last1Month"
+                                  formControlName="createdAt"
+                                  id="wqe"
+                              />
+                              <label for="wqe">Last 30 Days</label>
+                          </div>
+                      </div>
+                      <div class="widget">
+                          <h3 class="sb-title open">Job Type</h3>
+                          <div class="type_widget">
+                              <p class="flcheck">
+                                  <input
+                                      type="checkbox"
+                                      formControlName="job_type"
+                                      value="freelancer"
+                                      id="33r"
+                                  />
+                                  <label for="33r">Freelancer</label>
+                              </p>
+                              <p class="ftcheck">
+                                  <input
+                                      type="checkbox"
+                                      formControlName="job_type"
+                                      value="full time"
+                                      id="dsf"
+                                  />
+                                  <label for="dsf">Full Time</label>
+                              </p>
+                              <p class="ptcheck">
+                                  <input
+                                      type="checkbox"
+                                      formControlName="job_type"
+                                      value="part time"
+                                      id="sadd"
+                                  />
+                                  <label for="sadd">Part Time</label>
+                              </p>
+                              <p class="rmcheck">
+                                  <input
+                                      type="checkbox"
+                                      formControlName="job_type"
+                                      value="remotly"
+                                      id="sdd"
+                                  />
+                                  <label for="sdd">Remotly</label>
+                              </p>
+                          </div>
+                      </div>
+                  </aside>
+              </form>
+              <div class="col-md-9 column">
+                  <div class="modern-joblist">
+                      <div class="filterbar">
+                          <span class="emlthis">
+                              <a href="#" title class="email_link">
+                                  <mat-icon class="mat-18 mail_icon"
+                                      >mail_outline</mat-icon
+                                  >
+                                  Email Me jobs like this
+                              </a>
+                          </span>
+                          <h5 class="totalJobs">98 Jobs</h5>
+                      </div>
+                  </div>
+                  <div class="job-list-modern" *ngFor="let job of jobs">
+                      <div class="job-listing wtabs">
+                          <div class="job-title-sec">
+                              <div class="c-logo">
+                                  <img
+                                      [src]="job?.storeId.logo"
+                                      [alt]="job?.storeId.name"
+                                  />
+                              </div>
+                              <h3>
+                                  <a
+                                      [routerLink]="[
+                                          '/account/job',
+                                          job?._id
+                                      ]"
+                                      class="jobTitle"
+                                      >{{ job?.title }}</a
+                                  >
+                              </h3>
+                              <span>{{ job?.userId.name }}</span>
+                              <div class="job-lctn">
+                                  <i class="la la-map-marker"></i
+                                  >{{ job?.location }}
+                              </div>
+                          </div>
+                          <div class="job-style-bx">
+                              <span class="job-is ft">{{
+                                  job?.job_type
+                              }}</span>
+                              <span
+                                  class="fav-job"
+                                  (click)="onAddToShortList(job?._id)"
+                                  ><mat-icon class="mat-18" color="accent">{{
+                                      auth_user?.job_shortlist.includes(
+                                          job._id
+                                      )
+                                          ? 'favorite'
+                                          : 'favorite_border'
+                                  }}</mat-icon></span
+                              >
+                              <i>{{ job?.createdAt | date }}</i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

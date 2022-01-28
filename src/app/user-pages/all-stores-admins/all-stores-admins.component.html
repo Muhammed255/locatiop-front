@@ -1,0 +1,93 @@
+<div class="friend-list">
+    <div class="row">
+        <div class="col-md-4 col-sm-6">
+            <div class="friend-card" *ngFor="let admin of storeAdmins">
+                <img
+                    [src]="admin.storeId.logo ? admin.storeId.logo : 'assets/img/faces/face-0.jpg'"
+                    [alt]="admin.name"
+                    class="img-responsive cover"
+                />
+                <div class="card-info">
+                    <img
+                        [src]="admin.user_image ? admin.user_image : 'assets/img/faces/face-0.jpg'"
+                        [alt]="admin.name"
+                        class="profile-photo-lg"
+                    />
+                    <div class="friend-info">
+                        <button mat-button class="btn" type="button" (click)="onFollowBtnClicked(admin?._id)">
+                            <mat-icon #icon class="mat-18">
+                                {{ admin.followers.includes(user._id) ? 'check' : 'add' }}
+                            </mat-icon>
+                            {{ admin.followers.includes(user._id) ? 'UnFollow' : 'Follow' }}
+                        </button>
+                        <h5><a href="" class="profile-link">{{admin.name}}</a></h5>
+                        <p>{{admin.email}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container">
+    <div fxLayout="row" *ngFor="let admin of storeAdmins" fxFlexAlign="start" fxLayoutGap="20px">
+        <header>
+            <div class="bio">
+                <img [src]="admin.user_image" [alt]="admin.name" class="bg" />
+                <div class="desc">
+                    <h3>@{{ admin.username }}</h3>
+                    <p>{{ admin.email }}</p>
+                </div>
+            </div>
+
+            <div class="avatarcontainer">
+                <img
+                    [src]="admin?.storeId.logo"
+                    [alt]="admin?.storeId.name"
+                    class="avatar"
+                />
+                <div class="hover">
+                    <div class="icon-twitter"></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <div class="data">
+                <ul>
+                    <li>
+                        2,934
+                        <span>Tweets</span>
+                    </li>
+                    <li>
+                        {{ admin?.followers.length }}
+                        <span>Followers</span>
+                    </li>
+                    <li>
+                        {{ admin?.following.length }}
+                        <span>Following</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="follow">
+                <button
+                    mat-button
+                    class="btn"
+                    type="button"
+                    (click)="onFollowBtnClicked(admin?._id)"
+                >
+                    admin.followers.includes(user._id) ? 'check' : 'add'
+                    <mat-icon #icon class="mat-18">{{
+                        admin.followers.includes(user._id) ? 'check' : 'add'
+                    }}</mat-icon
+                    >{{
+                        admin.followers.includes(user._id)
+                            ? 'UnFollow'
+                            : 'Follow'
+                    }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->

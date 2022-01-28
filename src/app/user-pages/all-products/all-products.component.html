@@ -1,0 +1,77 @@
+<mat-card class="example-card" *ngFor="let product of products" fxFlex="30">
+  <mat-card-header style="background-color: #8242ff">
+      <div
+          mat-card-avatar
+          class="example-header-image"
+          [ngStyle]="{
+              'background-image': ' url(' + product?.storeId.logo + ')',
+              'background-size': 'cover'
+          }"
+      ></div>
+      <mat-card-title>{{ product.title }}</mat-card-title>
+      <mat-card-subtitle
+          >Added By:
+          <a
+              (mouseover)="showData = true"
+              (mouseout)="showData = false"
+              [routerLink]="['/account/store-admin', product?.userId._id]"
+          >
+              {{ product?.userId.name }}
+          </a></mat-card-subtitle
+      >
+  </mat-card-header>
+  <img
+      mat-card-image
+      [src]="product.image"
+      [alt]="product.title"
+      [routerLink]="['/account/product', product._id]"
+      style="height: 50%;width: 100%; margin: 0 0 20px 0;"
+  />
+  <mat-card-content [routerLink]="['/account/product', product._id]">
+      <p>
+          {{ product.description }}
+      </p>
+  </mat-card-content>
+  <mat-card-actions style="background-color: #59ffff;">
+      <button mat-button (click)="onAddToWishlistBtnClicked(product._id)">
+          <!-- auth_user?.wishlist.items.includes(product._id) ? 'favorite' : 'favorite_border' -->
+          <mat-icon #icon class="mat-18" color="accent">{{ auth_user?.wishlist.includes(product._id) ? 'favorite' : 'favorite_border' }}</mat-icon>
+      </button>
+      <button
+          mat-button
+          (click)="onCartBtnClicked(product._id)"
+          color="warn"
+          #button
+      >
+          <mat-icon class="mat-18">add_shopping_cart</mat-icon>
+      </button>
+      <button mat-button (click)="commentForm(product._id)">
+          <mat-icon class="mat-18" color="primary">comment</mat-icon>
+      </button>
+      <button mat-button>
+          <span class="fa fa-stack">
+              <i class="fa fa-shield fa-stack-2x"></i>
+              <i class="fa fa-square fa-stack-bottom-right fa-inverse"></i>
+              <i class="fa fa-check-square fa-stack-bottom-right"></i>
+          </span>
+      </button>
+      <a mat-button color="warn" (click)="commentRoute(product._id)">
+          {{ product?.comments.length }} Comment(s)</a
+      >
+  </mat-card-actions>
+</mat-card>
+
+<!-- <mat-card *ngIf="showData" class="data">
+<mat-card-header>
+    <img matCardAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg">
+    <mat-card-title>Title</mat-card-title>
+    <mat-card-subtitle>Subtitle</mat-card-subtitle>
+</mat-card-header>
+<mat-card-content>
+    Text contentsosocial
+</mat-card-content>
+<mat-card-actions align="start" style="display:flex">
+    <button mat-button><mat-icon>add</mat-icon>Follow</button>
+    <button mat-button><mat-icon>search</mat-icon>View Profile</button>
+</mat-card-actions>
+</mat-card> -->

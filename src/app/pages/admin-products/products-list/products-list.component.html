@@ -1,0 +1,77 @@
+<button
+    mat-mini-fab
+    color="primary"
+    class="addBtn"
+    (click)="onADialogOpenPressed()"
+>
+    <mat-icon class="mat-18">add</mat-icon>
+</button>
+<div class="mat-elevation-8">
+    <div class="loading-shade" *ngIf="isLoading">
+        <mat-spinner color="accent" *ngIf="isLoading"></mat-spinner>
+    </div>
+</div>
+
+<mat-form-field class="filter-full-width">
+    <input matInput (keyup)="filterProducts($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<mat-accordion class="example-headers-align" *ngFor="let prod of productsData">
+    <mat-expansion-panel
+        #expand
+        [expanded]="!expansion"
+        *ngIf="userId === prod.userId"
+    >
+        <mat-expansion-panel-header>
+            <mat-panel-title
+                style="
+                    font-weight: 500;
+                    font-size: 23px;
+                    text-transform: uppercase;
+                    color: #8602d8;"
+            >
+                {{ prod.title }}
+            </mat-panel-title>
+            <mat-panel-description>
+                <img
+                    *ngIf="!expand.expanded"
+                    [src]="prod.image"
+                    [alt]="prod.title"
+                    style="width: 45px;height: 29px;"
+                />
+                <p style="font-size: 25px;font-weight: 700;">
+                    {{ prod.price }}$
+                </p>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <img [src]="prod.image" [alt]="prod.title" style="margin-left: 55px;" />
+        <p>{{ prod.description }}</p>
+        <mat-action-row *ngIf="userIsAuthenticated && userId == prod.userId">
+            <button
+                mat-button
+                color="primary"
+                (click)="onADialogOpenPressed(prod._id)"
+            >
+                Edit
+            </button>
+            <button
+                mat-button
+                color="accent"
+                (click)="onDeleteProduct(prod._id)"
+            >
+                Delete
+            </button>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>
+
+<mat-paginator
+    pageIndex="0"
+    [length]="totalProds"
+    #paginator
+    [pageSize]="prodsPerPage"
+    [pageSizeOptions]="pageSizeOptions"
+    [showFirstLastButtons]="true"
+    *ngIf="productsData?.length > 0"
+    (page)="onChangePage($event)"
+></mat-paginator>

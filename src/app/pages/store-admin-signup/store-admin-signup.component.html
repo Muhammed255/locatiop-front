@@ -1,0 +1,313 @@
+<mat-sidenav-container class="h-100">
+    <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+         <form [formGroup]="storeadminForm" (ngSubmit)="onSubmitForm()" fxFlex="90" fxFlex.gt-sm="30" fxFlex.sm="60" class="mat-elevation-z6">
+              <app-content-header 
+                  [icon]="'person_add'" 
+                  [title]="'Store Admin Register'" 
+                  [hideBreadcrumb]="true"
+                  [hasBgImage]="true" 
+                  [class]="'py-4'"></app-content-header>            
+              <div class="p-4">
+                  <a mat-button routerLink="/user/login" color="accent" class="w-100">Already have an account? Sign in!</a>
+                  
+                  <mat-horizontal-stepper [linear]="true">
+                    <mat-step label="Personal Info">
+                        <mat-form-field class="w-100">
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="name"
+                                placeholder="Enter your full name"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.name.invalid &&
+                                storeadminForm.controls.name.touched
+                            "
+                            >Name is Required</mat-error
+                        >
+                        <mat-form-field class="w-100">
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="username"
+                                placeholder="Enter your username"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.username.invalid &&
+                                storeadminForm.controls.username.touched
+                            "
+                            >Username is Required</mat-error
+                        >
+                        <mat-form-field class="w-100">
+                            <input
+                                matInput
+                                type="number"
+                                formControlName="phone_number"
+                                placeholder="Enter your phone number"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-form-field class="w-100">
+                            <textarea
+                                matInput
+                                formControlName="bio"
+                                placeholder="Enter something about you"
+                            ></textarea>
+                        </mat-form-field>
+                        <button mat-button matStepperNext type="button" color="primary">
+                            Next
+                        </button>
+                    </mat-step>
+
+                    <mat-step label="Security">
+                        <mat-form-field class="w-100">
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="email"
+                                placeholder="Enter your E-Mail address"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.email.invalid &&
+                                storeadminForm.controls.email.touched
+                            "
+                            >Email is Required</mat-error
+                        >
+                        <mat-form-field class="w-100">
+                            <input
+                                matInput
+                                type="password"
+                                formControlName="password"
+                                placeholder="Enter your password"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.password.invalid &&
+                                storeadminForm.controls.password.touched
+                            "
+                            >Password is Required</mat-error
+                        >
+                        <button mat-button matStepperPrevious type="button" color="warn">
+                            Previous
+                        </button>
+                        <button mat-button matStepperNext type="button" color="primary">
+                            Next
+                        </button>
+                    </mat-step>
+
+                    <mat-step label="Finalize">
+                        <mat-form-field class="w-100">
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="postalCode"
+                                placeholder="Enter Zip Code"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-checkbox
+                            formControlName="job_concern"
+                            color="accent"
+                            >Do You want to upload jobs ?</mat-checkbox
+                        >
+                        <mat-form-field>
+                            <mat-label>Choose Your Store</mat-label>
+                            <mat-select formControlName="storeId">
+                                <mat-option
+                                    *ngFor="let store of stores"
+                                    [value]="store._id"
+                                >
+                                    {{ store.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.storeId.invalid &&
+                                storeadminForm.controls.storeId.touched
+                            "
+                            >Store is Required</mat-error
+                        >
+                        <button mat-button matStepperPrevious type="button" color="warn">
+                            Previous
+                        </button>
+                        <button mat-button color="accent" type="submit" class="btn-block">
+                            Register Now
+                        </button>
+                    </mat-step>
+                </mat-horizontal-stepper>
+
+
+                  <button mat-raised-button color="primary" class="mat-elevation-z6 w-100 mt-3" type="submit">SIGN UP</button>
+              </div>
+          </form>
+    </div>
+  </mat-sidenav-container>
+
+
+<!-- <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Store Admin Registeration</mat-card-title>
+        </mat-card-header>
+        
+        <form
+            class="example-form"
+            [formGroup]="storeadminForm"
+            (ngSubmit)="onSubmitForm()"
+        >
+            <mat-card-content>
+                
+                <mat-horizontal-stepper [linear]="true">
+                    <mat-step label="Personal Info">
+                        <mat-form-field class="example-full-width">
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="name"
+                                placeholder="Enter your full name"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.name.invalid &&
+                                storeadminForm.controls.name.touched
+                            "
+                            >Name is Required</mat-error
+                        >
+                        <mat-form-field class="example-full-width">
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="username"
+                                placeholder="Enter your username"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.username.invalid &&
+                                storeadminForm.controls.username.touched
+                            "
+                            >Username is Required</mat-error
+                        >
+                        <mat-form-field class="example-full-width">
+                            <input
+                                matInput
+                                type="number"
+                                formControlName="phone_number"
+                                placeholder="Enter your phone number"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <textarea
+                                matInput
+                                formControlName="bio"
+                                placeholder="Enter something about you"
+                            ></textarea>
+                        </mat-form-field>
+                        <button mat-button matStepperNext type="button" color="primary">
+                            Next
+                        </button>
+                    </mat-step>
+
+                    <mat-step label="Security">
+                        <mat-form-field class="example-full-width">
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="email"
+                                placeholder="Enter your E-Mail address"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.email.invalid &&
+                                storeadminForm.controls.email.touched
+                            "
+                            >Email is Required</mat-error
+                        >
+                        <mat-form-field class="example-full-width">
+                            <input
+                                matInput
+                                type="password"
+                                formControlName="password"
+                                placeholder="Enter your password"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.password.invalid &&
+                                storeadminForm.controls.password.touched
+                            "
+                            >Password is Required</mat-error
+                        >
+                        <button mat-button matStepperPrevious type="button" color="warn">
+                            Previous
+                        </button>
+                        <button mat-button matStepperNext type="button" color="primary">
+                            Next
+                        </button>
+                    </mat-step>
+
+                    <mat-step label="Finalize">
+                        <mat-form-field class="example-full-width">
+                            <input
+                                matInput
+                                type="text"
+                                formControlName="postalCode"
+                                placeholder="Enter Zip Code"
+                                required
+                            />
+                        </mat-form-field>
+                        <mat-checkbox
+                            formControlName="job_concern"
+                            color="accent"
+                            >Do You want to upload jobs ?</mat-checkbox
+                        >
+                        <mat-form-field>
+                            <mat-label>Choose Your Store</mat-label>
+                            <mat-select formControlName="storeId">
+                                <mat-option
+                                    *ngFor="let store of stores"
+                                    [value]="store._id"
+                                >
+                                    {{ store.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-error
+                            *ngIf="
+                                storeadminForm.controls.storeId.invalid &&
+                                storeadminForm.controls.storeId.touched
+                            "
+                            >Store is Required</mat-error
+                        >
+                        <button mat-button matStepperPrevious type="button" color="warn">
+                            Previous
+                        </button>
+                        <button mat-button color="accent" class="btn-block">
+                            Register
+                        </button>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </mat-card-content>
+        </form>
+    </mat-card>
+</div> -->

@@ -1,0 +1,139 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-8">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<div class="row">
+							<div class="col-xs-6">
+								<h5><span class="glyphicon glyphicon-shopping-cart"></span> Your Products in Shopping Cart</h5>
+							</div>
+							<div class="col-xs-6">
+								<button [routerLink]="'/account/products'" class="btn btn-primary btn-sm btn-block">
+									<span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" *ngFor="let item of cart_products">
+						<div class="col-xs-2"><img class="img-responsive" [src]="item?.productId.image" style="width: 100px;height: 70px;">
+						</div>
+						<div class="col-xs-4">
+							<h4 class="product-name"><strong>{{item?.productId.title}}</strong></h4><h4><small>{{item?.productId.description}}</small></h4>
+						</div>
+						<div class="col-xs-6">
+							<div class="col-xs-6 text-right">
+								<h6><strong>${{item?.productId.price}}<span class="text-muted">x</span></strong></h6>
+							</div>
+							<div class="col-xs-4">
+								<input type="number" [(ngModel)]="item.quantity" class="form-control input-sm">
+							</div>
+							<div class="col-xs-2">
+								<button type="button" (click)="removeProductFromCart(item.productId._id)" class="btn btn-link btn-xs">
+									<mat-icon class="mat-18" color="accent">delete</mat-icon>
+								</button>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="text-center">
+							<div class="col-xs-9">
+								<h6 class="text-right">Added items?</h6>
+							</div>
+							<div class="col-xs-3">
+								<button type="button" class="btn btn-default btn-sm btn-block">
+									Update cart
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<div class="row text-center">
+						<div class="col-xs-9">
+							<h4 class="text-right">Total <strong>{{total_products_prices}}</strong></h4>
+						</div>
+						<div class="col-xs-3">
+							<button type="button" class="btn btn-success btn-block">
+								Checkout
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Offers Cart -->
+
+	<div class="row">
+		<div class="col-xs-8">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<div class="row">
+							<div class="col-xs-6">
+								<h5><span class="glyphicon glyphicon-shopping-cart"></span> Your Offers in Shopping Cart</h5>
+							</div>
+							<div class="col-xs-6">
+								<button [routerLink]="'/account/products'" class="btn btn-primary btn-sm btn-block">
+									<span class="glyphicon glyphicon-share-alt"></span> Continue shopping
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="row" *ngFor="let item of cart_offers">
+						<div class="col-xs-2"><img class="img-responsive" [src]="item?.offerId.offer_image" style="width: 100px;height: 70px;">
+						</div>
+						<div class="col-xs-4">
+							<h4 class="offer-name"><strong>{{item?.offerId.offerType === 'Discount' ? item?.offerId.new_price: item?.offerId.offerType}}</strong></h4><h4><small>{{item?.offerId.description}}</small></h4>
+						</div>
+						<div class="col-xs-6">
+							<div class="col-xs-6 text-right">
+								<h6><strong>${{item?.offerId.price}}<span class="text-muted">x</span></strong></h6>
+							</div>
+							<div class="col-xs-4">
+								<input type="number" [(ngModel)]="item.quantity" class="form-control input-sm">
+							</div>
+							<div class="col-xs-2">
+								<button type="button" (click)="removeOfferFromCart(item.offerId._id)" class="btn btn-link btn-xs">
+									<mat-icon class="mat-18" color="accent">delete</mat-icon>
+								</button>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="text-center">
+							<div class="col-xs-9">
+								<h6 class="text-right">Added items?</h6>
+							</div>
+							<div class="col-xs-3">
+								<button type="button" class="btn btn-default btn-sm btn-block">
+									Update cart
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<div class="row text-center">
+						<div class="col-xs-9">
+							<h4 class="text-right">Total <strong>100</strong></h4>
+						</div>
+						<div class="col-xs-3">
+							<button type="button" class="btn btn-success btn-block">
+								Checkout
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

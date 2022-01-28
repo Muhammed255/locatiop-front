@@ -1,0 +1,22 @@
+<agm-map [latitude]="my_latitude" [longitude]="my_longitude" [zoom]="zoom">
+  <!--  -->
+    <agm-marker
+        *ngFor="let store of stores"
+        [latitude]="store?.location.coordinates[1]"
+        [longitude]="store?.location.coordinates[0]"
+        [markerDraggable]="false"
+    ></agm-marker>
+
+    <agm-polyline
+       [visible]="true"
+       [strokeWeight]="3"
+       [strokeColor]="'#2196f3'">
+        <agm-polyline-point
+          *ngFor="let store of stores; let i=index"
+          [latitude]="store?.location.coordinates[1]"
+          [longitude]="store?.location.coordinates[0]"
+        >
+        </agm-polyline-point>
+      </agm-polyline>
+</agm-map>
+<!-- (dragEnd)="markerDragEnd($event)" -->

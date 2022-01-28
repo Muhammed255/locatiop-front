@@ -1,0 +1,88 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.addBtn {
+  left: 3rem;
+  top: 17px;
+}
+
+.delBtn {
+  left: 50rem;
+  top: 20px;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #777;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+mat-chip {
+  max-width: 200px;
+}
+
+/* 
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+} */
+
+
+.attributes {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(10ch, 1fr));	 
+	grid-gap: 1em;
+	
+	dt {
+		grid-column-start: 1;
+	}
+	
+	dd {
+		grid-column-start: span 2;
+	}
+}
+
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+.container {
+	padding: 10vh 2.5vh;
+	margin: auto;
+	max-width: 1200px;
+}

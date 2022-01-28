@@ -1,0 +1,124 @@
+<h1 mat-dialog-title style="text-align: center;font-size: 40px;">{{headerTitle}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="prodForm" class="form-container">
+        
+        <mat-form-field color="accent">
+            <input
+                matInput
+                formControlName="title"
+                type="text"
+                required
+                placeholder="Product Title"
+            />
+        </mat-form-field>
+        <mat-error
+                *ngIf="
+                    prodForm.controls.title.invalid &&
+                    prodForm.controls.title.touched
+                "
+                >Product Title is Required</mat-error
+            >
+        <mat-form-field color="accent">
+            <input
+                matInput
+                formControlName="description"
+                type="text"
+                required
+                placeholder="Product Description"
+            />
+        </mat-form-field>
+        <mat-error
+        *ngIf="
+            prodForm.controls.description.invalid &&
+            prodForm.controls.description.touched
+        "
+        >Product Description is Required</mat-error
+    >
+        <mat-form-field color="accent">
+            <input
+                matInput
+                formControlName="price"
+                type="number"
+                required
+                placeholder="Product Price"
+            />
+        </mat-form-field>
+        <mat-error
+                *ngIf="
+                    prodForm.controls.price.invalid &&
+                    prodForm.controls.price.touched
+                "
+                >Product Price is Required</mat-error
+            >
+        <div class="form-group col-8">
+            <button
+                mat-stroked-button
+                (click)="filePicker.click()"
+                type="button"
+            >
+                Pick Product Image
+            </button>
+
+            <input type="file" #filePicker (change)="onImagePicked($event)" />
+        </div>
+        <div
+            class="image-preview form-group col-8"
+            *ngIf="
+                imagePreview !== '' &&
+                imagePreview &&
+                prodForm.get('image').valid
+            "
+        >
+            <img [src]="imagePreview" [alt]="prodForm.value.title" />
+        </div>
+
+        <mat-form-field>
+            <input
+                matInput
+                [matDatepicker]="picker"
+                placeholder="Choose productin date"
+                formControlName="production_date"
+                required
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+                #picker
+                startView="year"
+                [startAt]="startDate"
+            ></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                [matDatepicker]="expir_picker"
+                placeholder="Choose expire date"
+                formControlName="expire_date"
+                required
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="expir_picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+                #expir_picker
+                startView="year"
+                [startAt]="startDate"
+            ></mat-datepicker>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions class="actions">
+    <button
+        mat-button
+        [mat-dialog-close]="prodForm.value"
+        cdkFocusInitial
+        color="primary"
+    >
+        Save
+    </button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

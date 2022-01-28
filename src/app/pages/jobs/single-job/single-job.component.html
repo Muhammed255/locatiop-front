@@ -1,0 +1,77 @@
+<h1 mat-dialog-title><span *ngIf="!job._id">Add</span><span *ngIf="job._id">More Info About {{job.title}}</span> user</h1>
+<div mat-dialog-content>    
+        <mat-tab-group class="vertical-tabs">
+            <mat-tab label="Basic">
+                <div fxLayout="column" class="form-field-outer">
+                    <div>
+                      <mat-icon class="mat-18">description</mat-icon>
+                      <span class="desc-text"> {{job.description}} </span>
+                    </div>
+                    <br />
+                    <div>
+                      <mat-icon class="mat-18">location_on</mat-icon>
+                      <span class="desc-text"> {{job.location}} </span>
+                    </div>
+                    <br />
+                    <div>
+                      <mat-icon class="mat-18">wc</mat-icon>
+                      <span class="desc-text"> {{job.job_gender}} </span>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Personal" formGroupName="profile">
+                <div fxLayout="column" class="form-field-outer">
+                    
+                </div>
+            </mat-tab>
+            <mat-tab label="Work" formGroupName="work">
+                <div fxLayout="column" class="form-field-outer">
+                  <div>
+                    <mat-icon class="mat-18">grade</mat-icon>
+                    <span class="desc-text"> {{job.qualification}} </span>
+                  </div>
+                  <br />
+                  <div>
+                    <mat-icon class="mat-18">save_alt</mat-icon>
+                    <span class="desc-text"> {{job.experiences}} </span>
+                  </div>
+                  <br />
+                  <div>
+                    <mat-icon class="mat-18">data_usage</mat-icon>
+                    <span class="desc-text"> {{job.career_level}} </span>
+                  </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Contacts" formGroupName="contacts">
+                <div fxLayout="column" class="form-field-outer">
+                  <div>
+                    <mat-icon class="mat-18">merge_type</mat-icon>
+                    <span class="desc-text"> {{job.job_type}} </span>
+                  </div>
+                  <br />
+                  <div>
+                    <mat-icon class="mat-18">save_alt</mat-icon>
+                    <span class="desc-text"> {{job.skills}} </span>
+                  </div>
+                  <br />
+                  <div>
+                    <mat-icon class="mat-18">data_usage</mat-icon>
+                    <span class="desc-text"> {{job.career_level}} </span>
+                  </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Social life" formGroupName="social">
+                <div fxLayout="column" class="form-field-outer">
+                   
+                </div>
+            </mat-tab>
+            <mat-tab label="Settings" formGroupName="settings">
+                <div fxLayout="column" class="form-field-outer">
+                    
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+</div>

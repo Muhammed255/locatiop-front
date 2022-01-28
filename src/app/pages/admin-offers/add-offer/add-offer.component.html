@@ -1,0 +1,105 @@
+<mat-card>
+    <form [formGroup]="offerForm" (ngSubmit)="onSaveOffer()" class="form-container">
+        <mat-form-field>
+            <mat-label>Select Offer Type</mat-label>
+            <mat-select [matTooltip]="" formControlName="offerType" required color="accent">
+                <mat-option *ngFor="let type of offersTypes" [matTooltip]="type.desc" [value]="type.offer">
+                    {{ type.offer }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="offerForm.value.offerType === 'Discount'">
+                <input matInput formControlName="new_price"
+                       type="number"
+                       placeholder="New Price">
+        </mat-form-field>
+        <mat-error
+            *ngIf="
+                offerForm.controls.offerType.invalid &&
+                offerForm.controls.offerType.touched
+            "
+            >Offer Type is Required</mat-error
+        >
+        <mat-form-field color="accent">
+            <textarea matInput formControlName="description" placeholder="Offer Description"></textarea>
+          </mat-form-field>
+        <mat-error
+            *ngIf="
+                offerForm.controls.description.invalid &&
+                offerForm.controls.description.touched
+            "
+            >Offer Description is Required</mat-error
+        >
+        <div class="form-group col-8">
+            <button
+                mat-stroked-button
+                (click)="filePicker.click()"
+                type="button"
+            >
+                Pick Product Image
+            </button>
+
+            <input type="file" #filePicker (change)="onImagePicked($event)" />
+        </div>
+        <div
+            class="image-preview form-group col-8"
+            *ngIf="
+                imagePreview !== '' &&
+                imagePreview &&
+                offerForm.get('offer_image').valid
+            "
+        >
+            <img [src]="imagePreview" [alt]="offerForm.value.offerType" />
+        </div>
+
+        <mat-form-field>
+            <input
+                matInput
+                [matDatepicker]="picker"
+                placeholder="Choose start date"
+                formControlName="start_date"
+                required
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+                #picker
+                startView="year"
+                [startAt]="startDate"
+            ></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input
+                matInput
+                [matDatepicker]="end_picker"
+                placeholder="Choose end date"
+                formControlName="end_date"
+                required
+            />
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="end_picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+                #end_picker
+                startView="year"
+                [startAt]="startDate"
+            ></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Select Product</mat-label>
+            <mat-select formControlName="productId" required color="accent">
+                <mat-option *ngFor="let product of products" [value]="product._id">
+                    {{ product.title }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button type="submit" [disabled]="offerForm.invalid" mat-raised-button color="primary">Save Offer</button>
+
+    </form>
+</mat-card>

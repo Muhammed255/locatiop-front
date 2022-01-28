@@ -1,0 +1,47 @@
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-expansion-panel {
+  width: 65rem;
+  margin: 10px 0 10px 15pc;
+}
+
+.addBtn {
+  position: absolute;
+  bottom: 20rem;
+  width: 60px;
+  height: 60px;
+  left: 3rem;
+  top: 127px;
+}
+
+// mat-spinner {
+//   margin: auto;
+// }
+
+.filter-full-width {
+  left: 24.5rem;
+  width: 64rem;
+  top: 6px;
+  color: #b400ff;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

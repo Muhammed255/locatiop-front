@@ -1,0 +1,86 @@
+<h1 mat-dialog-title>New Store Admin</h1>
+<div mat-dialog-content>
+  <form [formGroup]="adminForm" class="form-container">
+    <mat-form-field>
+      <input color="accent"
+        matInput
+        formControlName="name"
+        type="text"
+        required
+        placeholder="Name"
+      />
+    </mat-form-field>
+    <mat-error
+        *ngIf="
+          adminForm.controls.name.invalid && adminForm.controls.name.touched
+        "
+        >Name is Required</mat-error
+      >
+    <mat-form-field>
+      <input color="accent"
+        matInput
+        formControlName="email"
+        type="email"
+        required
+        placeholder="E-Mail"
+      />
+    </mat-form-field>
+    <mat-error
+        *ngIf="
+          adminForm.controls.email.invalid && adminForm.controls.email.touched
+        "
+        >Email is Required</mat-error
+      >
+    <mat-form-field>
+      <input color="accent"
+        matInput
+        formControlName="username"
+        type="text"
+        required
+        placeholder="Username"
+      />
+    </mat-form-field>
+    <mat-error
+        *ngIf="
+          adminForm.controls.username.invalid &&
+          adminForm.controls.username.touched
+        "
+        >Username is Required</mat-error
+      >
+    <mat-form-field>
+      <input color="accent"
+        matInput
+        formControlName="password"
+        type="password"
+        required
+        placeholder="Password"
+      />
+    </mat-form-field>
+    <mat-error
+        *ngIf="
+          adminForm.controls.password.invalid &&
+          adminForm.controls.password.touched
+        "
+        >Password is Required</mat-error
+      >
+    <mat-checkbox formControlName="job_concern" color="accent">Do You want to upload jobs ?</mat-checkbox>
+    <mat-form-field>
+      <mat-label>Choose Store</mat-label>
+      <mat-select formControlName="storeId">
+        <mat-option *ngFor="let store of stores" [value]="store._id">
+          {{ store.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-error
+      *ngIf="
+        adminForm.controls.storeId.invalid && adminForm.controls.storeId.touched
+      "
+      >Store is Required</mat-error
+    >
+  </form>
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-button [mat-dialog-close]="adminForm.value" cdkFocusInitial color="primary">Save</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

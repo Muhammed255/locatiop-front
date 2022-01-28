@@ -1,0 +1,283 @@
+<div class="container">
+  <div class="row align-items-center my-5">
+      <div class="col-lg-7">
+          <img
+              class="img-fluid rounded mb-4 mb-lg-0"
+              [src]="product?.image"
+              [alt]="product?.title"
+              style="max-width: 58.33%;"
+          />
+      </div>
+      <!-- /.col-lg-8 -->
+      <div class="col-lg-5">
+          <h1 class="font-weight-light">{{ product?.title }}</h1>
+          by
+          <a
+              mat-button
+              color="primary"
+              *ngIf="product?.storeId"
+              [routerLink]="['/account/store', product?.storeId._id]"
+              >{{ product?.storeId.name }}</a
+          >
+          <div class="rating-section"></div>
+          <p *ngIf="offer">
+              Price: <del>${{ product?.price }}</del>
+          </p>
+          <p *ngIf="offer !== null">Offer: {{ offer?.offerType === "Discount" ? offer?.new_price : offer?.offerType }}</p>
+          <p *ngIf="offer === null">Price: ${{ product?.price }}</p>
+          <p>{{ product?.description }}</p>
+          <p>Production Date: {{ product?.production_date | date }}</p>
+          <p>Expire Date: {{ product?.expire_date | date }}</p>
+          <a class="report-link"
+              ><mat-icon>report_problem</mat-icon> Report incorrect product
+              information.</a
+          >
+      </div>
+  </div>
+
+  <!-- Post Comment Box: Start -->
+  <ul class="list-group">
+      <li class="list-group-item">
+          <!-- Post Comment Button -->
+          <button
+              type="button"
+              name="button"
+              class="btn btn-sm btn-danger"
+              (click)="draftComment(product?._id)"
+              [disabled]="newComment.indexOf(product?._id) > -1"
+          >
+              Post Comment
+          </button>
+          <br />
+          <br />
+          <div *ngIf="newComment.indexOf(product?._id) > -1">
+              <!-- Form: Comment Form Start -->
+              <form [formGroup]="commentForm">
+                  <!-- Textarea Input -->
+                  <textarea
+                      id="comment_form"
+                      name="comment"
+                      rows="10"
+                      cols="30"
+                      class="form-control"
+                      formControlName="comment"
+                  ></textarea>
+                  <!-- Validation -->
+                  <div
+                      [ngClass]="{
+                          'has-success':
+                              !commentForm.controls.comment.errors &&
+                              commentForm.controls.comment.dirty,
+                          'has-error':
+                              commentForm.controls.comment.dirty &&
+                              commentForm.controls.comment.errors
+                      }"
+                  >
+                      <ul class="help-block">
+                          <li
+                              *ngIf="
+                                  commentForm.controls.comment.errors
+                                      ?.required &&
+                                  commentForm.controls.comment.dirty
+                              "
+                          >
+                              This field is required.
+                          </li>
+                          <li
+                              *ngIf="
+                                  (commentForm.controls.comment.errors
+                                      ?.maxlength &&
+                                      commentForm.controls.comment.dirty) ||
+                                  (commentForm.controls.comment.errors
+                                      ?.minlength &&
+                                      commentForm.controls.comment.dirty)
+                              "
+                          >
+                              Comment must be at least 1 character but no more
+                              than 200.
+                          </li>
+                      </ul>
+                  </div>
+                  <!-- Post Button -->
+                  <button
+                      [disabled]="!commentForm.valid"
+                      type="submit"
+                      name="button"
+                      class="btn btn-sm btn-info"
+                      (click)="postComment(product?._id)"
+                  >
+                      Post
+                  </button>
+                  <!-- Cancel Button -->
+                  <button
+                      type="button"
+                      name="button"
+                      class="btn btn-sm btn-danger"
+                      (click)="cancelSubmission(product?._id)"
+                  >
+                      Cancel
+                  </button>
+              </form>
+              <!-- Form: Comment Form End -->
+          </div>
+
+          <!-- Show Comments -->
+      </li>
+
+      <li>
+          <div class="row">
+              <div class="col-12">
+                  <div class="comments">
+                      <div class="comments-details">
+                          <span class="total-comments comments-sort">{{product?.comments.length}}</span>
+                          <span class="dropdown">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Sort By <span class="caret"></span></button>
+                                <div class="dropdown-menu">
+                                  <a href="#" class="dropdown-item">Top Comments</a>
+                                  <a href="#" class="dropdown-item">Newest First</a>
+                                </div>
+                          </span>			
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </li>
+
+      <li
+          *ngIf="
+              enabledComments.indexOf(product?._id) === -1 &&
+              product?.comments.length > 0
+          "
+          class="list-group-item"
+      >
+          <span (click)="expand(product?._id)" class="show_comments">
+              Show comments&nbsp;&nbsp;
+              <div class="glyphicon glyphicon-comment"></div>
+          </span>
+      </li>
+
+      <!-- Hide Comments -->
+      <li
+          *ngIf="enabledComments.indexOf(product?._id) > -1"
+          class="list-group-item"
+      >
+          <span (click)="collapse(product?._id)">
+              Hide Comments&nbsp;&nbsp;
+              <div class="glyphicon glyphicon-comment"></div>
+          </span>
+      </li>
+
+      <!-- Comment -->
+      <div *ngIf="enabledComments.indexOf(product?._id) > -1">
+          <li
+              *ngFor="let comment of product?.comments; let i = index"
+              class="list-group-item"
+          >
+              <div class="row" id="comments_link">
+                  <div class="col-sm-2">
+                      <div class="thumbnail">
+                          <img
+                              class="img-responsive user-photo"
+                              [src]="comment?.commentator.user_image"
+                              [alt]="comment?.commentator.username"
+                          />
+                      </div>
+                      <!-- /thumbnail -->
+                  </div>
+                  <!-- /col-sm-2 -->
+
+                  <div class="col-sm-10">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <strong>{{ comment?.commentator.name }}</strong>
+                              <strong>@{{ comment?.commentator.username }}</strong>
+                              <span class="text-muted"
+                                  >{{comment?.comment_date | date}}</span
+                              >
+                          </div>
+                          <div class="panel-body">
+                              {{ comment.comment }}
+                          </div>
+                          <!-- /panel-body -->
+                          <button [disabled]="comment?.likedBy.indexOf(auth_user._id) > -1" class="comment-like" (click)="onLikeComment(product._id, comment._id)">
+                              <mat-icon>thumb_up</mat-icon>
+                              {{comment?.likes}}
+                          </button>
+                          <button [disabled]="comment?.dislikedBy.indexOf(auth_user._id) > -1" class="comment-dislike" (click)="ondislikeComment(product._id, comment._id)">
+                              <mat-icon>thumb_down</mat-icon>
+                              {{comment?.dislikes}}
+                          </button>
+                          <button
+                              class="comment-reply reply-popup"
+                              (click)="toggle(this, i)"
+                          >
+                              <mat-icon>reply</mat-icon>
+                              Reply
+                          </button>
+                          <ul class="media-list">
+                              <li class="media" *ngFor="let reply of comment?.replies">
+                                  <a [routerLink]="['/account/profile', reply?.replier._id]" class="pull-left">
+                                      <img [src]="reply?.replier.user_image ? reply?.replier.user_image : 'assets/img/faces/face-0.jpg'" [alt]="reply?.replier.name" class="img-circle">
+                                  </a>
+                                  <div class="media-body">
+                                      <span class="text-muted pull-right">
+                                          <small class="text-muted">{{reply?.reply_date | date}}</small>
+                                      </span>
+                                      <strong [routerLink]="['/account/profile', reply?.replier._id]" class="text-success">{{reply?.replier.name}}</strong>
+                                      <small [routerLink]="['/account/profile', reply?.replier._id]" class="username">@{{reply?.username | date}}</small>
+                                      <p>
+                                          {{reply?.reply}}
+                                      </p>
+                                  </div>
+                              </li>
+                          </ul>
+                          <div
+                              class="comment-box add-comment reply-box"
+                              *ngIf="selectedIndex == i"
+                          >
+                              <span class="commenter-pic">
+                                  <img
+                                      [src]="auth_user?.user_image ? auth_user?.user_image : 'assets/img/faces/face-0.jpg'"
+                                      class="img-fluid"
+                                  />
+                              </span>
+                              <span class="commenter-name">
+                                  <form [formGroup]="commentReplyForm">
+                                      <input
+                                          matInput
+                                          type="text"
+                                          placeholder="Add a public reply"
+                                          formControlName="reply"
+                                      />
+                                      <input
+                                          type="hidden"
+                                          formControlName="commentId"
+                                          [(ngModel)]="comment._id"
+                                      />
+                                      <button
+                                          type="submit"
+                                          class="btn btn-default"
+                                          (click)="postReplyComment(product._id)"
+                                      >
+                                          Reply
+                                      </button>
+                                      <button
+                                          type="cancel"
+                                          class="btn btn-default reply-popup"
+                                          (click)="toggle(this, i)"
+                                      >
+                                          Cancel
+                                      </button>
+                                  </form>
+                              </span>
+                          </div>
+                      </div>
+                      <!-- /panel panel-default -->
+                  </div>
+                  <!-- /col-sm-5 -->
+              </div>
+          </li>
+      </div>
+  </ul>
+  <!-- Post Comment Box: End -->
+</div>

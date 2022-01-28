@@ -1,0 +1,56 @@
+.catTotal {
+    background-color: #0e6fff;
+    max-width: 13rem;
+    height: 7rem;
+    border-radius: 15px;
+  }
+  
+  .catItem, .adminItem, .userItem, .activeItem {
+    border-radius: 19px;
+    height: 125px;
+    margin-right: 10px;
+    max-width: 259px;
+  }
+  
+  .catItem {
+      background-color: rgb(153, 24, 155);
+  }
+  
+  .adminItem {
+      background-color: rgb(82, 90, 118);
+  }
+  
+  .userItem {
+      background-color: rgb(110, 190, 43);
+  }
+  
+  .activeItem {
+      background-color: rgb(165, 105, 48);
+  }
+  
+  
+  .icon {
+    font-size: 40px;
+  }
+  
+  .cat-head, .admin-head, .user-head, .active-head {
+    margin-left: 175px;
+    font-size: 70px;
+    color: #000;
+    position: absolute;
+    top: 18px;
+  }
+  
+  .catTitle, .adminTitle, .userTitle, .activeTitle {
+    position: absolute;
+    bottom: 20px;
+    font-size: 23px;
+    font-weight: 500;
+  }
+  
+  .fa {
+    position: relative;
+    top: 6px;
+    font-size: 62px;
+    left: 19px;
+  }

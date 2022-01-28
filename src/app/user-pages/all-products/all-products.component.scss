@@ -1,0 +1,23 @@
+.example-card {
+    max-height: 30rem;
+    left: 10px;
+    margin:15px;
+}
+
+.fa-stack-bottom-right {
+    position: absolute;
+    left: 1.2em;
+    top: 0.8em;
+}
+
+mat-card:hover {
+    cursor: pointer;
+}
+
+.data {
+    position: relative;
+    bottom: 26.7rem;
+    width: 223px;
+    left: 10rem;
+    height: 115px;
+}

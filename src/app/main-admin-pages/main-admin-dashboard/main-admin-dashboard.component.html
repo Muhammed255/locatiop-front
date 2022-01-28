@@ -1,0 +1,121 @@
+<mat-divider></mat-divider>
+<br />
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <div fxFlex="60">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+                <!-- Position Column -->
+                <ng-container matColumnDef="position">
+                    <th mat-header-cell *matHeaderCellDef>No.</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.position }}
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.name }}
+                    </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="weight">
+                    <th mat-header-cell *matHeaderCellDef>Weight</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.weight }}
+                    </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="symbol">
+                    <th mat-header-cell *matHeaderCellDef>Symbol</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.symbol }}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                ></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        </div>
+    </div>
+    <div fxFlex="40">
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+
+
+
+<!-- <div class="row m-t-25">
+  <div class="col-sm-6 col-lg-3 catItem">
+    <div class="overview-item overview-item--c1">
+      <div class="overview__inner">
+        <div class="overview-box clearfix">
+          <div class="icon">
+            <i class="fa fa-tag"></i>
+          </div>
+          <div class="text">
+            <h2 class="cat-head"> {{countCats}} </h2>
+            <span class="catTitle">Total Categories</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 adminItem">
+    <div class="overview-item overview-item--c1">
+      <div class="overview__inner">
+        <div class="overview-box clearfix">
+          <div class="icon">
+            <i class="fa fa-amazon"></i>
+          </div>
+          <div class="text">
+            <h2 class="admin-head"> {{countStores}} </h2>
+            <span class="adminTitle">Stores</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 userItem">
+    <div class="overview-item overview-item--c1">
+      <div class="overview__inner">
+        <div class="overview-box clearfix">
+          <div class="icon">
+            <i class="fa fa-user-circle-o"></i>
+          </div>
+          <div class="text">
+            <h2 class="user-head"> 4 </h2>
+            <span class="userTitle">Total Users</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-lg-3 activeItem">
+    <div class="overview-item overview-item--c1">
+      <div class="overview__inner">
+        <div class="overview-box clearfix">
+          <div class="icon">
+            <i class="fa fa-user-secret"></i>
+          </div>
+          <div class="text">
+            <h2 class="active-head"> 5</h2>
+            <span class="activeTitle">Total Store Admins</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ -->
